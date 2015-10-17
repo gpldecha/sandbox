@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+
+	
+	<node name="statistics_test" pkg="statistics_test" type="meanshift_node" output="screen" respawn="true" cwd="node"/>
+
+	<!-- rviz -->
+	<node name="rviz" pkg="rviz" type="rviz"  args="-d $(find  statistics_test)/launch/stats_test_rviz.rviz"  required="true" />
+
+
+
+
+</launch>

@@ -1,0 +1,88 @@
+#ifndef ML_H_
+#define ML_H_
+
+
+#include "svminterface.h"
+#include "matlabinterface.h"
+#include <boost/array.hpp>
+#include "ros/ros.h"
+#include "finger.h"
+#include "gmm.h"
+#include <QThread>
+
+enum ml_method {SVM,HMM,GMM};
+
+#define nbClass 4
+
+using namespace std;
+
+
+class Ml : public QThread {
+
+	Q_OBJECT
+
+public:
+
+	Ml(const std::vector<Finger>& fingers,vector<double>& probabilities);
+
+	 void classify(const vector<double>& data,ml_method method);
+
+	 void setClassifier(ml_method classifier);
+
+	 void setbrun();
+
+	int getClass();
+
+	double getProbClass(int classe);
+
+	void checkContact();
+
+signals:
+
+	void reUpdate();
+
+protected:
+
+	void run();
+
+
+private:
+
+	inline void writePorbClasses();
+
+	void confidence_svm(const boost::circular_buffer<int>& counts, double *confidence, int nbClasses);
+
+	inline void exponential_mouving_average(vector<double>& s,const vector<double>& y,double alpha );
+
+
+private:
+
+	//MatlabInterface matlab_interface_hmm;
+	//MatlabInterface matlab_interface_gmm;
+
+	MatlabInterface matInterface;
+
+    SvmInterface    svm_interface;
+    Gmm gmm;
+
+
+	int classe;
+
+	const std::vector<Finger>& fingers;
+	boost::circular_buffer<int> counts_svm;
+	vector<double>& probabilities;
+	vector<double> y;
+	vector<double> E;
+	double pressure;
+	ml_method classifier;
+
+	boost::array<double,nbClass> tmp;
+	boost::circular_buffer<boost::array<double,nbClass> > prob_buffer;
+	double confidence[nbClass];
+	bool runThread;
+	bool first;
+};
+
+
+
+#endif /* ML_H_*/

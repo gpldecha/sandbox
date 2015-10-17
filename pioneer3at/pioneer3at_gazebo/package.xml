@@ -1,0 +1,18 @@
+<package>
+  <name>pioneer3at_gazebo</name>
+  <version>0.1.0</version>
+  <description>pioneer3at_gazebo</description>
+  <maintainer email="guillaume.dechambrier@epfl.ch">Guillaume de Chambrier</maintainer>
+  <license>BSD</license>
+
+  <author email="guillaume.dechambrier@epfl.ch">Guillaume de Chambrier </author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <run_depend>pioneer3at_description</run_depend>
+  <run_depend>pioneer3at_control</run_depend>
+  <run_depend>gazebo_ros</run_depend> 
+
+  <export>
+  </export>
+</package>

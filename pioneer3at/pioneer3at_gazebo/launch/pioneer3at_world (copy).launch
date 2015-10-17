@@ -1,0 +1,59 @@
+<launch>
+  
+<!-- these are the arguments you can pass this launch file, for example paused:=true -->
+  <arg name="paused" default="false"/>
+  <arg name="use_sim_time" default="true"/>
+  <arg name="gui" default="true"/>
+  <arg name="headless" default="false"/>
+  <arg name="debug" default="false"/>
+
+  <!-- We resume the logic in empty_world.launch, changing only the name of the world to be launched -->
+
+
+  <arg name="verbose" default="false"/>
+  <arg name="world_name" default="$(find pioneer3at_gazebo)/worlds/wg_world.sdf"/> 
+
+  <!-- set use_sim_time flag -->
+  <group if="$(arg use_sim_time)">
+    <param name="/use_sim_time" value="true" />
+  </group>
+
+  <!-- set command arguments -->
+  <arg unless="$(arg paused)" name="command_arg1" value=""/>
+  <arg     if="$(arg paused)" name="command_arg1" value="-u"/>
+  <arg unless="$(arg headless)" name="command_arg2" value=""/>
+  <arg     if="$(arg headless)" name="command_arg2" value="-r"/>
+  <arg unless="$(arg verbose)" name="command_arg3" value=""/>
+  <arg     if="$(arg verbose)" name="command_arg3" value="--verbose"/>
+  <arg unless="$(arg debug)" name="script_type" value="gzserver"/>
+  <arg     if="$(arg debug)" name="script_type" value="debug"/>
+
+  <!-- start gazebo server-->
+  <node name="gazebo" pkg="gazebo_ros" type="$(arg script_type)" respawn="false" output="screen"
+	args="$(arg command_arg1) $(arg command_arg2) $(arg command_arg3) $(arg world_name)" />
+	
+  <!-- start gazebo client -->
+  <group if="$(arg gui)">
+    <node name="gazebo_gui" pkg="gazebo_ros" type="gzclient" respawn="false" output="screen"/>
+  </group>
+
+
+
+
+	<!-- Spawn a Pioneer3AT in the WG office building -->
+	<!--<node pkg="pioneer3at" type="bashim" name="gazebo_server" args="gzserver /home/guillaume/roscode/catkin_ws/src/pioneer3at/config/gazebo/wg_world.sdf"/> -->
+
+	<!-- run script to control the vitual pioneer -->
+	<node pkg="pioneer3at" type="gazebo_bridge" name="Pioneer3AT_Gazebo" >	
+	  <param name="ros_odom_frame"          type="str"    value="/Pioneer3AT/odom" />
+	  <param name="ros_child_frame"         type="str"    value="base_link" />
+	  <param name="ros_odom_tf_future_date" type="double" value="0.05" />
+	  
+	  <param name="gz_model_name"     type="str" value="Pioneer3AT" />
+	  <param name="gz_pose_topic"     type="str" value="~/pose/info" />
+	  <param name="gz_cmd_vel_topic"  type="str" value="~/Pioneer3AT/vel_cmd" />
+	  
+		<remap from="odom"    to="/Pioneer3AT/pose" />
+		<remap from="cmd_vel" to="/Pioneer3AT/cmd_vel" />
+	</node>
+</launch>

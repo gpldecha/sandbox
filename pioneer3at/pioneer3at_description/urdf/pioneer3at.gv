@@ -1,0 +1,53 @@
+digraph G {
+node [shape=box];
+"Pioneer3AT/base_link" [label="Pioneer3AT/base_link"];
+"top_plate" [label="top_plate"];
+"hokuyo_link" [label="hokuyo_link"];
+"front_left_axle" [label="front_left_axle"];
+"front_left_hub" [label="front_left_hub"];
+"front_left_wheel" [label="front_left_wheel"];
+"front_right_axle" [label="front_right_axle"];
+"front_right_hub" [label="front_right_hub"];
+"front_right_wheel" [label="front_right_wheel"];
+"front_sonar" [label="front_sonar"];
+"rear_left_axle" [label="rear_left_axle"];
+"rear_left_hub" [label="rear_left_hub"];
+"rear_left_wheel" [label="rear_left_wheel"];
+"rear_right_axle" [label="rear_right_axle"];
+"rear_right_hub" [label="rear_right_hub"];
+"rear_right_wheel" [label="rear_right_wheel"];
+"rear_sonar" [label="rear_sonar"];
+node [shape=ellipse, color=blue, fontcolor=blue];
+"Pioneer3AT/base_link" -> "base_top_joint" [label="xyz: 0.003 0 0.274 \nrpy: 0 -0 0"]
+"base_top_joint" -> "top_plate"
+"top_plate" -> "hokuyo_joint" [label="xyz: 0 0 0.1 \nrpy: 0 -0 0"]
+"hokuyo_joint" -> "hokuyo_link"
+"Pioneer3AT/base_link" -> "front_left_axle_joint" [label="xyz: 0.135 0.156 0.111 \nrpy: 0 -0 0"]
+"front_left_axle_joint" -> "front_left_axle"
+"front_left_axle" -> "front_left_hub_joint" [label="xyz: 0 0.041 0 \nrpy: 0 -0 0"]
+"front_left_hub_joint" -> "front_left_hub"
+"front_left_hub" -> "front_left_wheel_joint" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"front_left_wheel_joint" -> "front_left_wheel"
+"Pioneer3AT/base_link" -> "front_right_axle_joint" [label="xyz: 0.135 -0.156 0.111 \nrpy: 0 -0 0"]
+"front_right_axle_joint" -> "front_right_axle"
+"front_right_axle" -> "front_right_hub_joint" [label="xyz: 0 -0.041 0 \nrpy: 0 -0 0"]
+"front_right_hub_joint" -> "front_right_hub"
+"front_right_hub" -> "front_right_wheel_joint" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"front_right_wheel_joint" -> "front_right_wheel"
+"Pioneer3AT/base_link" -> "front_sonar_joint" [label="xyz: 0.193 0 0.25 \nrpy: 0 -0 0"]
+"front_sonar_joint" -> "front_sonar"
+"Pioneer3AT/base_link" -> "rear_left_axle_joint" [label="xyz: -0.135 0.156 0.111 \nrpy: 0 -0 0"]
+"rear_left_axle_joint" -> "rear_left_axle"
+"rear_left_axle" -> "rear_left_hub_joint" [label="xyz: 0 0.041 0 \nrpy: 0 -0 0"]
+"rear_left_hub_joint" -> "rear_left_hub"
+"rear_left_hub" -> "rear_left_wheel_joint" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"rear_left_wheel_joint" -> "rear_left_wheel"
+"Pioneer3AT/base_link" -> "rear_right_axle_joint" [label="xyz: -0.135 -0.156 0.111 \nrpy: 0 -0 0"]
+"rear_right_axle_joint" -> "rear_right_axle"
+"rear_right_axle" -> "rear_right_hub_joint" [label="xyz: 0 -0.041 0 \nrpy: 0 -0 0"]
+"rear_right_hub_joint" -> "rear_right_hub"
+"rear_right_hub" -> "rear_right_wheel_joint" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"rear_right_wheel_joint" -> "rear_right_wheel"
+"Pioneer3AT/base_link" -> "rear_sonar_joint" [label="xyz: -0.187 0 0.247 \nrpy: 0 -0 0"]
+"rear_sonar_joint" -> "rear_sonar"
+}
